@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.2</version>
+    <date>2020-11-22T21:37:58Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template 1C AppGate</template>
+            <name>Template 1C AppGate</name>
+            <description>Шлюз приложений 1С</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>1C AppGate</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Статус управления шлюза приложений</name>
+                    <key>net.tcp.service[tcp,,{$APPGATE_MNG_PORT}]</key>
+                    <delay>30s</delay>
+                    <applications>
+                        <application>
+                            <name>1C AppGate</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>[1С AppGate] Порт управления шлюза недоступен на {HOST.NAME}</name>
+                            <priority>AVERAGE</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Статус шлюза приложений</name>
+                    <key>net.tcp.service[tcp,,{$APPGATE_PORT}]</key>
+                    <delay>30s</delay>
+                    <applications>
+                        <application>
+                            <name>1C AppGate</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>[1С AppGate] Шлюз недоступен на {HOST.NAME}</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$APPGATE_MNG_PORT}</macro>
+                    <value>9090</value>
+                    <description>Порт управления шлюзом приложений  1С</description>
+                </macro>
+                <macro>
+                    <macro>{$APPGATE_PORT}</macro>
+                    <value>8080</value>
+                    <description>Порт шлюза приложений 1С</description>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>

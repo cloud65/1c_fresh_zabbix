@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.2</version>
+    <date>2020-11-22T21:38:13Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template 1C Infotech</template>
+            <name>Template 1C Infotech</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Infotech</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Активность рабочего сервера 1С</name>
+                    <key>net.tcp.service[tcp,,1540]</key>
+                    <applications>
+                        <application>
+                            <name>Infotech</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>Рабочий процесс 1С отключен</name>
+                            <priority>HIGH</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>1С Менеджер - загрузка процессора</name>
+                    <key>proc.cpu.util[rmngr]</key>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Infotech</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>1С Рабочий процесс - загрузка процессора</name>
+                    <key>proc.cpu.util[rphost]</key>
+                    <value_type>FLOAT</value_type>
+                    <units>%</units>
+                    <applications>
+                        <application>
+                            <name>Infotech</name>
+                        </application>
+                    </applications>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>1C Процессы CPU</name>
+            <graph_items>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>BF00FF</color>
+                    <item>
+                        <host>Template 1C Infotech</host>
+                        <key>proc.cpu.util[rmngr]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>GRADIENT_LINE</drawtype>
+                    <color>4DB6AC</color>
+                    <item>
+                        <host>Template 1C Infotech</host>
+                        <key>proc.cpu.util[rphost]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+</zabbix_export>
